@@ -1,5 +1,7 @@
 # 💰 Personal Finance Smart Budgeter
 
+Personal Finance Smart Budgeter is a web-based finance management system that helps users track income, expenses, and monthly budgets efficiently. It provides financial insights, spending analysis, savings suggestions, and visual reports to improve personal money management and decision-making.
+
 ## ✅ What was fixed
 - **Uses Node.js built-in SQLite** (`node:sqlite`) — no MySQL, no XAMPP, no native compilation errors
 - Fixed "Add Expense" & "Add Category" form errors
