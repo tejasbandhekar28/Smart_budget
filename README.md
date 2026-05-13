@@ -11,30 +11,25 @@ Personal Finance Smart Budgeter is a web-based finance management system that he
 
 ---
 ## Features
-User Registration & Secure Login
-Dashboard for Financial Overview
-Income Tracking System
-Expense Management
-Monthly Budget Planning
-Spending Categories Management
-Financial Analysis & Reports
-Savings Suggestions
-Income vs Expense Trends
-Smart Insights & Predictions
+- User Registration & Secure Login
+- Dashboard for Financial Overview
+- Income Tracking System
+- Expense Management
+- Monthly Budget Planning
+- Spending Categories Management
+- Financial Analysis & Reports
+- Savings Suggestions
+- Income vs Expense Trends
+- Smart Insights & Predictions
 
 ---
 
 ## Project Objectives
-Track daily income and expenses
-Manage monthly budgets efficiently
-Improve financial awareness
-Provide analytical insights through charts and reports
-Support better financial decision-making
-Future Enhancements
-Mobile Application Support
-Online Payment Integration
-Advanced Financial Analytics
-Multi-user Collaboration Support
+- Track daily income and expenses
+- Manage monthly budgets efficiently
+- Improve financial awareness
+- Provide analytical insights through charts and reports
+- Support better financial decision-making
 ---
 
 ## Project Structure
