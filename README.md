@@ -8,33 +8,36 @@ Personal Finance Smart Budgeter is a web-based finance management system that he
 - Fixed `.env` loading
 - Server serves the frontend directly — just open your browser!
 
+
 ---
-
-## 🚀 Setup (3 steps)
-
-```bash
-# 1. Open Terminal in the budget-fixed folder
-cd /Users/tejasbandhekar/Desktop/budget-fixed
-
-# 2. Install only 3 small packages (express, cors, dotenv — pure JS, no compiling)
-npm install
-
-# 3. Start
-npm start
-```
-
-
-The `budget_tracker.db` file is created automatically on first run.
+## Features
+User Registration & Secure Login
+Dashboard for Financial Overview
+Income Tracking System
+Expense Management
+Monthly Budget Planning
+Spending Categories Management
+Financial Analysis & Reports
+Savings Suggestions
+Income vs Expense Trends
+Smart Insights & Predictions
 
 ---
 
-## Requirements
-- **Node.js v22.5 or higher** (you have v25.8.0 ✅)
-- No MySQL, no XAMPP, no extra software
-
+## Project Objectives
+Track daily income and expenses
+Manage monthly budgets efficiently
+Improve financial awareness
+Provide analytical insights through charts and reports
+Support better financial decision-making
+Future Enhancements
+Mobile Application Support
+Online Payment Integration
+Advanced Financial Analytics
+Multi-user Collaboration Support
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 budget-fixed/
