@@ -44,6 +44,6 @@ budget-fixed/
 │   ├── styles.css
 │   └── app.js
 ├── budget_tracker.db   ← Auto-created on first run
-├── .env                ← PORT=5000
+├── .env                
 └── package.json
 ```
