@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Smart Finance Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="auth-wrapper">
+  <div class="card auth-card register-card">
+    <div class="auth-header">
+      <div class="logo">
+        <div class="logo-icon"><i class="ph ph-wallet"></i></div>
+      </div>
+      <h2>Create an Account</h2>
+      <p>Start tracking your finances today</p>
+    </div>
+    
+    <div id="register-alert" class="alert-message alert-error"></div>
+
+    <form id="register-form" class="auth-form" novalidate>
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" required placeholder="John Doe">
+        <div class="form-error" id="name-error">Full name is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required placeholder="you@example.com">
+        <div class="form-error" id="email-error">Please enter a valid email.</div>
+      </div>
+      
+      <div class="form-group" style="display:flex; gap: 16px;">
+        <div style="flex:1;">
+          <label for="password">Password</label>
+          <div class="password-input-wrapper">
+            <input type="password" id="password" required placeholder="Minimum 8 chars">
+            <button type="button" class="toggle-password" onclick="togglePassword('password')">
+              <i class="ph ph-eye" id="password-eye"></i>
+            </button>
+          </div>
+          <div class="password-strength" id="pwd-strength">
+            <div class="strength-bar" id="bar-1"></div>
+            <div class="strength-bar" id="bar-2"></div>
+            <div class="strength-bar" id="bar-3"></div>
+          </div>
+          <div class="strength-text" id="strength-label">Too short</div>
+          <div class="form-error" id="password-error">Password must be at least 8 characters.</div>
+        </div>
+
+        <div style="flex:1;">
+          <label for="confirm-password">Confirm Password</label>
+          <div class="password-input-wrapper">
+            <input type="password" id="confirm-password" required placeholder="Confirm password">
+            <button type="button" class="toggle-password" onclick="togglePassword('confirm-password')">
+              <i class="ph ph-eye" id="confirm-password-eye"></i>
+            </button>
+          </div>
+          <div class="form-error" id="confirm-error">Passwords do not match.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Account Role</label>
+        <select id="role">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary auth-btn" id="register-submit">
+        <div class="spinner"></div> Create Account
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const eyeIcon = document.getElementById(inputId + '-eye');
+    if (input.type === 'password') {
+      input.type = 'text';
+      eyeIcon.classList.replace('ph-eye', 'ph-eye-slash');
+    } else {
+      input.type = 'password';
+      eyeIcon.classList.replace('ph-eye-slash', 'ph-eye');
+    }
+  }
+
+  const pwdInput = document.getElementById('password');
+  pwdInput.addEventListener('input', (e) => {
+    const val = e.target.value;
+    const bar1 = document.getElementById('bar-1');
+    const bar2 = document.getElementById('bar-2');
+    const bar3 = document.getElementById('bar-3');
+    const label = document.getElementById('strength-label');
+    
+    // reset colors
+    [bar1, bar2, bar3].forEach(b => b.style.backgroundColor = '#E5E7EB');
+    
+    if (val.length === 0) {
+      label.textContent = "";
+      return;
+    }
+    
+    if (val.length < 8) {
+      bar1.style.backgroundColor = '#EF4444'; // Red
+      label.textContent = "Too short";
+      label.style.color = '#EF4444';
+      return;
+    }
+    
+    let strength = 1;
+    if (/[A-Z]/.test(val) && /[0-9]/.test(val)) strength++;
+    if (/[^A-Za-z0-9]/.test(val)) strength++;
+    
+    if (strength === 1) {
+      bar1.style.backgroundColor = '#F59E0B'; // Orange
+      label.textContent = "Weak";
+      label.style.color = '#F59E0B';
+    } else if (strength === 2) {
+      bar1.style.backgroundColor = '#3B82F6'; // Blue
+      bar2.style.backgroundColor = '#3B82F6';
+      label.textContent = "Medium";
+      label.style.color = '#3B82F6';
+    } else {
+      bar1.style.backgroundColor = '#10B981'; // Green
+      bar2.style.backgroundColor = '#10B981';
+      bar3.style.backgroundColor = '#10B981';
+      label.textContent = "Strong";
+      label.style.color = '#10B981';
+    }
+  });
+
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const fullname = document.getElementById('fullname');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirm = document.getElementById('confirm-password');
+    const role = document.getElementById('role');
+    
+    const nameErr = document.getElementById('name-error');
+    const emailErr = document.getElementById('email-error');
+    const pwdErr = document.getElementById('password-error');
+    const confirmErr = document.getElementById('confirm-error');
+    
+    const alertBox = document.getElementById('register-alert');
+    const submitBtn = document.getElementById('register-submit');
+    
+    // Reset errors
+    [fullname, email, password, confirm].forEach(el => el.classList.remove('input-error'));
+    [nameErr, emailErr, pwdErr, confirmErr].forEach(el => el.style.display = 'none');
+    alertBox.style.display = 'none';
+    
+    let isValid = true;
+    
+    if (!fullname.value.trim()) {
+      fullname.classList.add('input-error');
+      nameErr.style.display = 'block';
+      isValid = false;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+      email.classList.add('input-error');
+      emailErr.style.display = 'block';
+      isValid = false;
+    }
+    
+    if (password.value.length < 8) {
+      password.classList.add('input-error');
+      pwdErr.style.display = 'block';
+      isValid = false;
+    }
+    
+    if (password.value !== confirm.value) {
+      confirm.classList.add('input-error');
+      confirmErr.style.display = 'block';
+      isValid = false;
+    }
+    
+    if (!isValid) return;
+    
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          fullname: fullname.value, 
+          email: email.value, 
+          password: password.value,
+          role: role.value 
+        })
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+      
+      alertBox.textContent = 'Account created successfully! Redirecting to login...';
+      alertBox.className = 'alert-message alert-success';
+      alertBox.style.display = 'block';
+      
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+      
+    } catch (err) {
+      alertBox.textContent = err.message;
+      alertBox.className = 'alert-message alert-error';
+      alertBox.style.display = 'block';
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
